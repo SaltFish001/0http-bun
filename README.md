@@ -1,15 +1,11 @@
 # Introduction
 
-Experimental, bun-based HTTP framework inspired by [0http](https://0http.21no.de/#/)
-
-![Performance Benchmarks](0http-benchmarks.png)
-
-> MacBook Pro (13-inch, 2020)
+bun-based HTTP framework fork from [0http](https://0http.21no.de/#/)
 
 ## Usage
 
-```js
-const http = require('0http-bun');
+```ts
+import http from '@saltfish/fish-router';
 
 const { router } = http({
   port: 3000,

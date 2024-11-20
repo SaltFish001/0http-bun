@@ -148,7 +148,6 @@ export class IRouter extends Trouter implements _IRouter {
       ];
       prefix = '/';
     } else if (prefix instanceof IRouter) {
-      // console.log("prefix.routes >>>", prefix.routes);
       this.routes.push(...prefix.routes);
       return;
     } else if (
@@ -157,7 +156,6 @@ export class IRouter extends Trouter implements _IRouter {
     ) {
       const sub_router = middlewares[0];
       sub_router.routes.forEach((route) => {
-        // console.log("route >>>", route);
         const { keys, pattern } = parse(
           ((prefix as string) + route.origin_pattern) as string,
         );
@@ -171,7 +169,6 @@ export class IRouter extends Trouter implements _IRouter {
       return;
     }
 
-    // super.use(prefix as Pattern, ...(middlewares as Function[]));
     const handlers = [...(middlewares as RequestHandler[])];
     const { keys, pattern } = parse(prefix as string, true);
     this.routes.push({
