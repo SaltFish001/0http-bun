@@ -1,32 +1,38 @@
 {
-  "name": "0http-bun",
-  "version": "1.0.4",
-  "description": "0http for Bun",
-  "main": "index.js",
+  "name": "@saltfish/fish-router",
+  "version": "0.1.0",
+  "description": "a fork of 0http for Bun",
+  "main": "index.ts",
   "scripts": {
-    "lint": "bun x standard",
-    "format": "bun x standard --fix"
+    "lint": "bun eslint --fix",
+    "format": "bun prettier . --write"
   },
   "dependencies": {
     "fast-querystring": "^1.1.2",
-    "trouter": "^3.2.1"
+    "regexparam": "^3.0.0",
+    "trouter": "^4.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BackendStack21/0http-bun.git"
+    "url": "git+https://github.com/SaltFish001/0http-bun.git"
   },
   "files": [
     "LICENSE",
     "README.md",
-    "index.js",
-    "index.d.ts",
-    "common.d.ts",
+    "index.ts",
     "lib/"
   ],
   "devDependencies": {
-    "0http-bun": "^1.0.3",
-    "bun-types": "^1.1.8",
-    "mitata": "^0.1.11"
+    "@types/bun": "^1.1.13",
+    "@types/node": "^22.9.1",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "bun-types": "^1.1.36",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "mitata": "^0.1.14",
+    "prettier": "^3.3.3"
   },
   "keywords": [
     "http",
@@ -39,7 +45,14 @@
   "author": "Rolando Santamaria Maso <kyberneees@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/BackendStack21/0http-bun/issues"
+    "url": "https://github.com/SaltFish001/0http-bun/issues"
   },
-  "homepage": "https://github.com/BackendStack21/0http-bun#readme"
+  "homepage": "https://github.com/SaltFish001/0http-bun#readme",
+  "peerDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
 }
