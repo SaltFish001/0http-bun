@@ -1,5 +1,9 @@
-import type { IRouterConfig, RequestHandler, ZeroRequest } from '../../common';
-import next from '../next';
+import type {
+  IRouterConfig,
+  RequestHandler,
+  ZeroRequest,
+} from '../../common.d.ts';
+import next from '../next.ts';
 import { Trouter, type Methods, type Pattern } from 'trouter';
 import qs from 'fast-querystring';
 import { parse } from 'regexparam';
@@ -46,24 +50,19 @@ export type MAP_key =
   | 'TRACE'
   | 'POST'
   | 'PUT';
-declare module 'trouter' {
-  interface Trouter {
-    routes: {
-      keys: string[];
-      pattern: RegExp;
-      origin_pattern: Pattern;
-      method: Methods;
-      handlers: RequestHandler[];
-      midx: number;
-    }[];
-  }
-}
 
 export class IRouter extends Trouter implements _IRouter {
   port?: number;
   defaultRoute: (_req: ZeroRequest) => Response;
   errorHandler: (err: Error | unknown) => Response | Promise<Response>;
-
+  routes: {
+    keys: string[];
+    pattern: RegExp;
+    origin_pattern: Pattern;
+    method: Methods;
+    handlers: RequestHandler[];
+    midx: number;
+  }[] = [];
   constructor(config?: IRouterConfig) {
     super();
     this.defaultRoute =
@@ -85,10 +84,13 @@ export class IRouter extends Trouter implements _IRouter {
     this.post = this.add.bind(this, 'POST');
     this.put = this.add.bind(this, 'PUT');
   }
-  on = (method: Methods, pattern: Pattern, ...handlers: RequestHandler[]) =>
-    this.add(method, pattern, ...handlers);
+  on = (
+    method: Methods,
+    pattern: Pattern,
+    ...handlers: RequestHandler[]
+  ): this => this.add(method, pattern, ...handlers);
 
-  fetch = (req: Request) => {
+  fetch = (req: Request): Response | Promise<Response> => {
     const url = req.url;
     const startIndex = url.indexOf('/', 11);
     const queryIndex = url.indexOf('?', startIndex + 1);
@@ -120,7 +122,11 @@ export class IRouter extends Trouter implements _IRouter {
     }
   };
 
-  add = (method: Methods, route: Pattern, ...fns: RequestHandler[]) => {
+  override add = (
+    method: Methods,
+    route: Pattern,
+    ...fns: RequestHandler[]
+  ): this => {
     const { keys, pattern } = parse(route as string);
     const handlers = [...fns];
     this.routes.push({
@@ -133,11 +139,11 @@ export class IRouter extends Trouter implements _IRouter {
     });
     return this;
   };
-  use(pattern: RequestHandler, ...handlers: RequestHandler[]): this;
-  use(router: IRouter): this;
-  use(pattern: Pattern, ...handlers: RequestHandler[]): this;
-  use(prefix: Pattern, router: IRouter): this;
-  use(
+  override use(pattern: RequestHandler, ...handlers: RequestHandler[]): this;
+  override use(router: IRouter): this;
+  override use(pattern: Pattern, ...handlers: RequestHandler[]): this;
+  override use(prefix: Pattern, router: IRouter): this;
+  override use(
     prefix: IRouter | Pattern | RequestHandler,
     ...middlewares: RequestHandler[] | [IRouter]
   ) {

@@ -1,4 +1,4 @@
-import type { RequestHandler, ZeroRequest } from '../common';
+import type { RequestHandler, ZeroRequest } from '../common.d.ts';
 const next = (
   middlewares: RequestHandler[],
   req: ZeroRequest,

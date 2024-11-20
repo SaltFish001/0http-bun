@@ -1,8 +1,12 @@
-import server from './lib/router/sequential';
-import type { IRouterConfig } from './common';
-export type * from './common';
-export { IRouter } from './lib/router/sequential';
-export default (config: IRouterConfig) => {
+import server, { IRouter } from './lib/router/sequential.ts';
+import type { IRouterConfig } from './common.d.ts';
+export type * from './common.d.ts';
+export { IRouter } from './lib/router/sequential.ts';
+export default (
+  config: IRouterConfig,
+): {
+  router: IRouter;
+} => {
   const router = server(config);
   return {
     router,
