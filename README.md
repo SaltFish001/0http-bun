@@ -42,4 +42,4 @@ export default router;
 
 You can support the maintenance of this project:
 
-- PayPal: https://www.paypal.me/kyberneees
+- PayPal: https://paypal.me/saltfish123585?country.x=C2&locale.x=zh_XC
